@@ -31,6 +31,11 @@ public class RestApiController {
     @Autowired
     private EmployeeService employeeService;
 
+    /*
+     * Method for get record from db by id-param value
+     * full rest example : GET http://localhost:8080/rest/api/employee?id=1
+     * return: {"result":[{"firstName":"John","lastName":"Doe","created":"2024-05-23 12:32:01","fullName":"John Doe (1)","position":"Manager","id":"1","supervisorFullName":"","supervisor":""}]}
+     */
     @CrossOrigin(origins = "https://localhost:3000", maxAge = 3600)
     @RequestMapping(value = "/employee", method = RequestMethod.GET)
     public ResponseEntity<String> getEmployee(@RequestParam(value = "id") String id) {
@@ -57,6 +62,12 @@ public class RestApiController {
                 : badResponse(HttpStatus.NOT_FOUND, result);
     }
 
+    /*
+     * Method for update record in db by json-body
+     * full rest example : PUT http://localhost:8080/rest/api/employee
+     * json-body example: {"id": "1", "firstName": "Ololo", "lastName": "Trololo", "position": "worker", "supervisor": "2", "subordinates": "3,4,5"} // "supervisor", "subordinates" are optional
+     * return: {"result":[{"firstName":"Mister","lastName":"Bin","created":"2024-05-23 12:32:01","fullName":"Mister Bin (1)","position":"actor","id":"1","supervisorFullName":"Hehe Hoho (2)","supervisor":"2"}]}
+     */
     @CrossOrigin(origins = "https://localhost:3000", maxAge = 3600)
     @RequestMapping(value = "/employee", method = RequestMethod.PUT)
     public ResponseEntity<String> putEmployee(@RequestBody ReqEmployeeModel updEmployee) {
@@ -106,6 +117,12 @@ public class RestApiController {
                 : badResponse(HttpStatus.NOT_FOUND, result);
     }
 
+    /*
+     * Method for create record in db by json-body
+     * full rest example : POST http://localhost:8080/rest/api/employee
+     * json-body example: {"firstName": "Ololo", "lastName": "Trololo", "position": "worker", "supervisor": "2" } // "supervisor" is optional
+     * return: {"id":"6"} // id of new record
+     */
     @CrossOrigin(origins = "https://localhost:3000", maxAge = 3600)
     @RequestMapping(value = "/employee", method = RequestMethod.POST)
     public ResponseEntity<String> postEmployee(@RequestBody ReqEmployeeModel newEmployee) {
@@ -134,6 +151,11 @@ public class RestApiController {
                 : badResponse(HttpStatus.NOT_FOUND);
     }
 
+    /*
+     * Method for delete record in db by id
+     * full rest example : DELETE http://localhost:8080/rest/api/employee?id=3
+     * return: {"result":"User with id '3' was deleted"}
+     */
     @CrossOrigin(origins = "https://localhost:3000", maxAge = 3600)
     @RequestMapping(value = "/employee", method = RequestMethod.DELETE)
     public ResponseEntity<String> delEmployee(@RequestParam(value = "id") String id) {
@@ -159,6 +181,11 @@ public class RestApiController {
                 : badResponse(HttpStatus.NOT_FOUND, result);
     }
 
+    /*
+     * Method for get list of records from db by ids
+     * full rest example : GET http://localhost:8080/rest/api/employee?ids=1,2
+     * return: {"result":[{"firstName":"Mister","lastName":"Bin","created":"2024-05-23 12:32:01","fullName":"Mister Bin (1)","position":"actor","id":"1","supervisorFullName":"","supervisor":""},{"firstName":"Jane","lastName":"Smith","created":"2024-05-23 12:32:01","fullName":"Jane Smith (2)","position":"Assistant Manager","id":"2","supervisorFullName":"Mister Bin (1)","supervisor":"1"}]}
+     */
     @CrossOrigin(origins = "https://localhost:3000", maxAge = 3600)
     @RequestMapping(value = "/employee/list", method = RequestMethod.GET)
     public ResponseEntity<String> getEmployeesList(@RequestParam(value = "ids") String ids) {
@@ -185,6 +212,11 @@ public class RestApiController {
                 : badResponse(HttpStatus.NOT_FOUND, result);
     }
 
+    /*
+     * Method for get list of records from db by pagination, where p - is page, and lim - count of records in page
+     * full rest example : GET http://localhost:8080/rest/api/employee?ids=1,2
+     * return: {"result":[{"firstName":"Mister","lastName":"Bin","created":"2024-05-23 12:32:01","fullName":"Mister Bin (1)","position":"actor","id":"1","supervisorFullName":"","supervisor":""},{"firstName":"Jane","lastName":"Smith","created":"2024-05-23 12:32:01","fullName":"Jane Smith (2)","position":"Assistant Manager","id":"2","supervisorFullName":"Mister Bin (1)","supervisor":"1"}]}
+     */
     @CrossOrigin(origins = "https://localhost:3000", maxAge = 3600)
     @RequestMapping(value = "/employee/page", method = RequestMethod.GET)
     public ResponseEntity<String> getEmployeesPage(@RequestParam(value = "p") String p, @RequestParam(value = "lim") String lim) {
@@ -218,6 +250,11 @@ public class RestApiController {
                 : badResponse(HttpStatus.NOT_FOUND, result);
     }
 
+    /*
+     * Method for get list of count of records in db
+     * full rest example : GET http://localhost:8080/rest/api/employee/total
+     * return: {"total":2}
+     */
     @CrossOrigin(origins = "https://localhost:3000", maxAge = 3600)
     @RequestMapping(value = "/employee/total", method = RequestMethod.GET)
     public ResponseEntity<String> getTotal() {
@@ -227,6 +264,11 @@ public class RestApiController {
                 : badResponse(HttpStatus.NOT_FOUND);
     }
 
+    /*
+     * Method for get list of possible supervisors for record by id (supervisor can not be the same record, already added as supervisor, if this record is supervisor for)
+     * full rest example : GET http://localhost:8080/rest/api/employee/supervisors?id=7
+     * return: {"result":[{"firstName":"Mister","lastName":"Bin","created":"2024-05-23 12:32:01","fullName":"Mister Bin (1)","position":"actor","id":"1","supervisorFullName":"","supervisor":""},{"firstName":"Jane","lastName":"Smith","created":"2024-05-23 12:32:01","fullName":"Jane Smith (2)","position":"Assistant Manager","id":"2","supervisorFullName":"Mister Bin (1)","supervisor":"1"},{"firstName":"Mark","lastName":"Twen","created":"2024-05-23 14:04:34","fullName":"Mark Twen (5)","position":"writer","id":"5","supervisorFullName":"","supervisor":""},{"firstName":"Mark","lastName":"Twen","created":"2024-05-23 14:04:35","fullName":"Mark Twen (6)","position":"writer","id":"6","supervisorFullName":"","supervisor":""}]}
+     */
     @CrossOrigin(origins = "https://localhost:3000", maxAge = 3600)
     @RequestMapping(value = "/employee/supervisors", method = RequestMethod.GET)
     public ResponseEntity<String> getPossibleSupervisors(@RequestParam(value = "id") String id) {

@@ -29,6 +29,14 @@ public class EmployeeService {
         employeeDbService = new EmployeeDbServiceImpl(HibernateUtils.getSessionFactory().openSession());
     }
 
+    /**
+     * Method add new record
+     * @param firstName
+     * @param lastName
+     * @param position
+     * @param supervisor
+     * @return return id of created user or errors list
+     */
     public OperationResult add(String firstName, String lastName, String position, Long supervisor) {
         OperationResult out = prapareOperationResult(firstName, lastName, supervisor);
 
@@ -53,6 +61,11 @@ public class EmployeeService {
         return out;
     }
 
+    /**
+     * Method return information of record by if
+     * @param id - id of record
+     * @return return fields, or errors
+     */
     public OperationResult get(Long id) {
         OperationResult out = new OperationResult();
         if (id == null) {
@@ -73,6 +86,12 @@ public class EmployeeService {
         return out;
     }
 
+    /**
+     * Method return information of records by if (pagination)
+     * @param page - page number
+     * @param lim - limit of records on page
+     * @return return fields, or errors
+     */
     public OperationResult get(long page, long lim) {
         OperationResult out = new OperationResult();
 
@@ -95,6 +114,11 @@ public class EmployeeService {
         return out;
     }
 
+    /**
+     * Method delete record by id
+     * @param id - of record for deleting
+     * @return result of operation: information that record is deleted or errors
+     */
     public OperationResult del(long id) {
         OperationResult out = new OperationResult();
         EmployeeEntity deleteEntity = employeeDbService.get(id);
@@ -107,6 +131,11 @@ public class EmployeeService {
                 : del(deleteEntity);
     }
 
+    /**
+     * Method delete record by Entity
+     * @param e - Entity for deleting
+     * @return result of operation: information that record is deleted or errors
+     */
     public OperationResult del(EmployeeEntity e) {
         OperationResult out = new OperationResult();
         if (e.getId() == null) {
@@ -124,6 +153,17 @@ public class EmployeeService {
         return out;
     }
 
+
+    /**
+     * Method for modify of record
+     * @param id                - id of record
+     * @param newFirstName      - new name-field value
+     * @param newLastName       - new lastname-field value
+     * @param newPosition       - new position-field value
+     * @param newSupervisor     - new supervisor-field value
+     * @param newSubordinates   - new subordinates-set value
+     * @return return updated information or errors of operation
+     */
     public OperationResult modify(Long id, String newFirstName, String newLastName, String newPosition, Long newSupervisor, Set<Long> newSubordinates) {
         OperationResult out = prapareOperationResult(newFirstName, newLastName, newSupervisor);
         if (id == null)
@@ -176,6 +216,11 @@ public class EmployeeService {
         return out;
     }
 
+    /**
+     * Method return list of records by id
+     * @param ids
+     * @return return records or/and errors of operation
+     */
     public OperationResult getList(Collection<Long> ids) {
         OperationResult out = new OperationResult();
 
@@ -215,6 +260,9 @@ public class EmployeeService {
         return out;
     }
 
+    /*
+     * Method return total records count
+     */
     public Long getTotal() {
         return employeeDbService.getTotal();
     }
