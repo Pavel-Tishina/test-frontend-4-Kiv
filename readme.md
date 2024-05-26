@@ -18,7 +18,7 @@ Please check first next applications:
 - docker (tested on Windows10 with <a hred="https://www.docker.com/products/docker-desktop/">Docker Desktop</a>)
 - maven 3.9.1 and <a href="https://maven.apache.org/download.cgi">above</a>
 - jdk 17.0.5 and above (application develop and tested with <a href=" https://docs.aws.amazon.com/corretto/latest/corretto-17-ug/downloads-list.html">Amazon Corretto JDK 17.0.5</a>)
-- have opened and free port **8080** and **3000** 
+- have opened and free port **7080** and **3000** 
 
 Amazon Corretto 17.0.5 distr can find here:
     Windows: https://corretto.aws/downloads/latest/amazon-corretto-17-x64-windows-jdk.zip
@@ -53,7 +53,7 @@ Please check your **JAVA_HOME** and **MAVEN_HOME**, run commands such
 
 7. run images (in 2 different terminals)
 <div><b>backend:</b>
-<code>docker run -p 8080:8080 test4sandbox</code>
+<code>docker run -p 7080:7080 test4sandbox</code>
 </div>
 
 <div><b>frontend</b>
@@ -62,7 +62,7 @@ Please check your **JAVA_HOME** and **MAVEN_HOME**, run commands such
 
 
 8. check running of backend application (it must return a not empty JSON-response)
-<p><code>curl -X GET "http://localhost:8080/rest/api/employee/page?p=0&lim=5"</code></p>
+<p><code>curl -X GET "http://localhost:7080/rest/api/employee/page?p=0&lim=5"</code></p>
 example of JSON-response:
 <code>{"result":[{"lastName":"Doe","firstName":"John","created":"2024-05-03 00:41:04","fullName":"John Doe (1)","id":"1","position":"Manager","supervisorFullName":"","supervisor":""},{"lastName":"Smith","firstName":"Jane","created":"2024-05-03 00:41:04","fullName":"Jane Smith (2)","id":"2","position":"Assistant Manager","supervisorFullName":"John Doe (1)","supervisor":"1"},{"lastName":"Johnson","firstName":"Alice","created":"2024-05-03 00:41:04","fullName":"Alice Johnson (3)","id":"3","position":"Team Leader","supervisorFullName":"John Doe (1)","supervisor":"1"}]}</code>
 
@@ -75,7 +75,7 @@ example of JSON-response:
 
 2. open in IDE as maven-project and start with <b>Test4sandboxApplication.java</b>
 3. check running of backend application (it must return a not empty JSON-response)
-<p><code>curl -X GET "http://localhost:8080/rest/api/employee/page?p=0&lim=5"</code></p>
+<p><code>curl -X GET "http://localhost:7080/rest/api/employee/page?p=0&lim=5"</code></p>
 example of JSON-response:
 <code>{"result":[{"lastName":"Doe","firstName":"John","created":"2024-05-03 00:41:04","fullName":"John Doe (1)","id":"1","position":"Manager","supervisorFullName":"","supervisor":""},{"lastName":"Smith","firstName":"Jane","created":"2024-05-03 00:41:04","fullName":"Jane Smith (2)","id":"2","position":"Assistant Manager","supervisorFullName":"John Doe (1)","supervisor":"1"},{"lastName":"Johnson","firstName":"Alice","created":"2024-05-03 00:41:04","fullName":"Alice Johnson (3)","id":"3","position":"Team Leader","supervisorFullName":"John Doe (1)","supervisor":"1"}]}</code>
 
